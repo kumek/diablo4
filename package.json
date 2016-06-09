@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp build",
-    "clean" : "gulp clean"
+    "clean": "gulp clean"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,9 @@
     "jshint": "^2.9.2"
   },
   "dependencies": {
-    "react": "^15.1.0"
+    "bootstrap": "^3.3.6",
+    "jsx-transform": "^2.3.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
   }
 }

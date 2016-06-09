@@ -8,10 +8,64 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
+
+
+var src = {
+    js: ['app/js/*.js'],
+    html: ['app/index.html'],
+    jsx: ['app/*.jsx']
+};
+
+var dst = {
+    js: 'dist/public/js',
+    css: 'dist/public/css',
+    fonts: 'dist/public/fonts',
+    html: 'dist/',
+    jsx: 'dist/'
+}
  
-// Lint Task
+ 
+// FUNCTIONS
+var copyReact = function() {
+    gulp.src('./node_modules/react/dist/react.min.js')
+    .pipe(gulp.dest(dst.js));
+};
+
+var copyBootstrap = function() {
+    var bootstrapSrc = './node_modules/bootstrap/dist/';
+    
+    gulp.src(bootstrapSrc + 'js/bootstrap.min.js')
+    .pipe(gulp.dest(dst.js));
+    
+    gulp.src(bootstrapSrc + 'css/bootstrap.min.css')
+    .pipe(gulp.dest(dst.css));
+    
+    gulp.src(bootstrapSrc + 'fonts/*')
+    .pipe(gulp.dest(dst.fonts));
+}
+
+
+var copyLibraries = function() {
+    copyReact();
+    copyBootstrap();
+};
+
+var copyHtml = function() {
+    gulp.src(src.html)
+    .pipe(gulp.dest(dst.html));
+    
+
+};
+
+
+//TASKS
+gulp.task('copyFiles', function() {
+    copyLibraries();
+    copyHtml();
+});
+
 gulp.task('lint', function() {
-    return gulp.src('js/*.js')
+    return gulp.src(src.js)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -25,38 +79,25 @@ gulp.task('sass', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src('js/*.js')
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(rename('all.min.js'))
+    return gulp.src(src.js)
+        .pipe(concat('all.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
-});
-
-// FUNCTIONS
-var copyLibraries = function() {
-    gulp.src('./node_modules/react/dist/react.min.js')
-    .pipe(gulp.dest('dist/js'));
-};
-
-
-
-//TASKS
-gulp.task('copyLibraries', function() {
-    copyLibraries();
+        .pipe(gulp.dest(dst.js));
+        
+        
 });
 
 
 //FINAL TASKS
 gulp.task('watch', function() {
-    gulp.watch('js/*.js', ['lint', 'scripts']);
+    gulp.watch(['app/js/*.js', 'app/*.jsx'], ['lint', 'scripts']);
     gulp.watch('scss/*.scss', ['sass']);
 });
 
 gulp.task('clean', function() {
-    	return gulp.src('dist/*', {read: false})
+    	return gulp.src('./dist/**', {read: false})
 		.pipe(clean({force: true}));
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('build', ['clean', 'copyLibraries', 'scripts']);
+gulp.task('build', ['clean', 'copyFiles', 'scripts']);
