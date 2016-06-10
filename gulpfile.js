@@ -8,60 +8,59 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 var src = {
     js: ['app/js/*.js'],
-    html: ['app/index.html'],
-    jsx: ['app/*.jsx']
+    jsx: ['app/*.jsx'],
+    index: ['app/*.html','app/*.js']
 };
+
 
 var dst = {
     js: 'dist/public/js',
     css: 'dist/public/css',
     fonts: 'dist/public/fonts',
-    html: 'dist/',
-    jsx: 'dist/'
+    index: 'dist/'
 }
- 
- 
-// FUNCTIONS
-var copyReact = function() {
-    gulp.src('./node_modules/react/dist/react.min.js')
-    .pipe(gulp.dest(dst.js));
-};
 
-var copyBootstrap = function() {
-    var bootstrapSrc = './node_modules/bootstrap/dist/';
+var jsLibraries = [
+    'node_modules/react/dist/react.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    ];
     
-    gulp.src(bootstrapSrc + 'js/bootstrap.min.js')
+var cssLibraries = [
+    'node_modules/bootstrap/dist/css/bootstrap.min.css'
+    ];
+    
+var fontsLibraries = [
+    'node_modules/bootstrap/dist/fonts/*'
+    ];
+    
+    
+//COPY LIBRARIES
+gulp.task('copyJavascriptLibs', function() {
+    return gulp.src(jsLibraries)
     .pipe(gulp.dest(dst.js));
-    
-    gulp.src(bootstrapSrc + 'css/bootstrap.min.css')
+});
+
+gulp.task('copyCssLibs', function() {
+    return gulp.src(cssLibraries)
     .pipe(gulp.dest(dst.css));
-    
-    gulp.src(bootstrapSrc + 'fonts/*')
+});
+
+gulp.task('copyFontsLibs', function() {
+    return gulp.src(fontsLibraries)
     .pipe(gulp.dest(dst.fonts));
-}
+});
 
-
-var copyLibraries = function() {
-    copyReact();
-    copyBootstrap();
-};
-
-var copyHtml = function() {
-    gulp.src(src.html)
-    .pipe(gulp.dest(dst.html));
-    
-
-};
-
+gulp.task('copyLibraries', ['copyJavascriptLibs', 'copyCssLibs', 'copyFontsLibs']);
 
 //TASKS
-gulp.task('copyFiles', function() {
-    copyLibraries();
-    copyHtml();
+gulp.task('copyIndex', function() {
+    return gulp.src(src.index)
+        .pipe(gulp.dest(dst.index));
 });
 
 gulp.task('lint', function() {
@@ -83,8 +82,6 @@ gulp.task('scripts', function() {
         .pipe(concat('all.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(dst.js));
-        
-        
 });
 
 
@@ -95,9 +92,9 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function() {
-    	return gulp.src('./dist/**', {read: false})
+    	return gulp.src('./dist', {read: false})
 		.pipe(clean({force: true}));
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('build', ['clean', 'copyFiles', 'scripts']);
+gulp.task('build', ['copyLibraries', 'copyIndex', 'scripts']);
