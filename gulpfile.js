@@ -8,18 +8,20 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
+var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 
 
 var src = {
     js: ['app/js/*.js'],
-    jsx: ['app/*.jsx'],
-    index: ['app/*.html','app/*.js']
+    jsx: ['app/components/**/*.jsx', 'app/*.jsx'],
+    index: ['app/*.html','app/*.js'],
 };
 
 
 var dst = {
     js: 'dist/public/js',
+    jsx: 'dist/',
     css: 'dist/public/css',
     fonts: 'dist/public/fonts',
     index: 'dist/'
@@ -27,7 +29,8 @@ var dst = {
 
 var jsLibraries = [
     'node_modules/react/dist/react.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/react-dom/dist/react-dom.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js'
     ];
     
 var cssLibraries = [
@@ -84,6 +87,16 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(dst.js));
 });
 
+gulp.task('babel', function() {
+    return gulp.src(src.jsx)
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+        plugins: ['transform-react-jsx']
+    }))
+    // .pipe(sourcemaps.write('./'))
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest(dst.jsx));
+})
 
 //FINAL TASKS
 gulp.task('watch', function() {
@@ -92,8 +105,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function() {
-    	return gulp.src('./dist', {read: false})
-		.pipe(clean({force: true}));
+    return gulp.src('./dist', {read: false})
+    .pipe(clean({force: true}));
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
