@@ -5,7 +5,7 @@ define([
     var MainWindow = React.createClass({displayName: 'Main Window',
       render: function() {
         return (
-          <div>Main Windows</div>
+          <div>Main Window</div>
           )
       }
     });

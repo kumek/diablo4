@@ -24,6 +24,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.10",
     "gulp-concat": "^2.6.0",
     "gulp-dest": "^0.2.3",
     "gulp-jshint": "^2.0.1",

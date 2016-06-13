@@ -10,13 +10,15 @@ var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var babel = require('gulp-babel');
 var dest = require('gulp-dest');
+var cleanCSS = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 
 
 var src = {
     js: ['app/js/*.js'],
-    jsx: ['app/components/*.jsx'],
+    jsx: ['app/components/**/*.jsx'],
     index: ['app/*.html','app/*.js'],
+    sass: ['app/components/**/*.scss']
 };
 
 
@@ -77,36 +79,34 @@ gulp.task('lint', function() {
 
 // Compile Our Sass
 gulp.task('sass', function() {
-    return gulp.src('scss/*.scss')
+    return gulp.src(src.sass)
         .pipe(sass())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(concat('style.css'))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(dst.css));
 });
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src(src.js)
         .pipe(concat('all.min.js'))
-        .pipe(uglify())
         .pipe(gulp.dest(dst.js));
 });
 
-gulp.task('reactComponents', function() {
+gulp.task('jsx', function() {
     return gulp.src(src.jsx)
-    .pipe(sourcemaps.init())
     .pipe(babel({
         plugins: ['transform-react-jsx']
     }))
-    // .pipe(sourcemaps.write('./'))
-    // .pipe(concat('app.js'))
-    // .pipe(dest('./:name.js'))
+    .pipe(dest('public/components/:name.js'))
     .pipe(gulp.dest(dst.jsx));
 });
 
 //FINAL TASKS
 gulp.task('watch', function() {
     gulp.watch(src.js, ['lint', 'scripts']);
-    gulp.watch(src.jsx, ['reactComponents']);
-    gulp.watch('scss/*.scss', ['sass']);
+    gulp.watch(src.jsx, ['jsx']);
+    gulp.watch(src.sass, ['sass']);
     gulp.watch(src.index, ['copyIndex']);
 });
 
@@ -116,4 +116,4 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('build', ['copyLibraries', 'copyIndex', 'scripts', 'reactComponents']);
+gulp.task('build', ['copyLibraries', 'copyIndex', 'scripts', 'jsx', 'sass']);
