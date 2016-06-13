@@ -18,7 +18,9 @@ var src = {
     js: ['app/js/*.js'],
     jsx: ['app/components/**/*.jsx'],
     index: ['app/*.html','app/*.js'],
-    sass: ['app/css/*.scss', 'app/components/**/*.scss']
+    sass: ['app/css/*.scss', 'app/components/**/*.scss'],
+    models: ['app/models/*.js'],
+    img: ['app/img/*']
 };
 
 
@@ -27,7 +29,9 @@ var dst = {
     jsx: 'dist/public/components',
     css: 'dist/public/css',
     fonts: 'dist/public/fonts',
-    index: 'dist/'
+    index: 'dist/',
+    models: 'dist/public/models',
+    img: 'dist/public/img'
 }
 
 var jsLibraries = [
@@ -35,7 +39,9 @@ var jsLibraries = [
     'node_modules/react-dom/dist/react-dom.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/requirejs/require.js'
+    'node_modules/requirejs/require.js',
+    'node_modules/backbone/backbone-min.js',
+    'node_modules/underscore/underscore-min.js'
     ];
     
 var cssLibraries = [
@@ -63,6 +69,7 @@ gulp.task('copyFontsLibs', function() {
     .pipe(gulp.dest(dst.fonts));
 });
 
+
 gulp.task('copyLibraries', ['copyJavascriptLibs', 'copyCssLibs', 'copyFontsLibs']);
 
 //TASKS
@@ -70,6 +77,11 @@ gulp.task('copyIndex', function() {
     return gulp.src(src.index)
         .pipe(gulp.dest(dst.index));
 });
+
+gulp.task('copyImages', function() {
+    return gulp.src(src.img)
+        .pipe(gulp.dest(dst.img));
+})
 
 gulp.task('lint', function() {
     return gulp.src(src.js)
@@ -102,6 +114,11 @@ gulp.task('jsx', function() {
     .pipe(gulp.dest(dst.jsx));
 });
 
+gulp.task('models', function() {
+    return gulp.src(src.models)
+    .pipe(gulp.dest(dst.models));
+})
+
 //FINAL TASKS
 gulp.task('watch', function() {
     gulp.watch(src.js, ['lint', 'scripts']);
@@ -116,4 +133,4 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('build', ['copyLibraries', 'copyIndex', 'scripts', 'jsx', 'sass']);
+gulp.task('build', ['copyLibraries', 'copyIndex', 'copyImages', 'scripts', 'jsx', 'models', 'sass']);

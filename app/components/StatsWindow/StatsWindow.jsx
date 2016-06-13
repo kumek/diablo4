@@ -1,5 +1,6 @@
 // tutorial1-raw.js
-define([], function() {
+define(['react'],
+function(React) {
     var StatsWindow = React.createClass({displayName: 'Stats Window',
         render: function() {
             return (

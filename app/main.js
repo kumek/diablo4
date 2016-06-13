@@ -4,13 +4,14 @@ require.config({
   paths: {
     react: 'js/react',
     reactDom: 'js/react-dom.min',
-    jquery: 'js/jquery.min'
+    jquery: 'js/jquery.min',
+    backbone: 'js/backbone-min',
+    underscore: 'js/underscore-min'
   }
 });
 
 require([
   'jquery', 'react', 'reactDom', 'components/MainWindow'
   ], function($, React, ReactDOM, MainWindow) {
-    console.log($('#content'));
-    ReactDOM.render(React.createElement(MainWindow, null),$('#content')[0]);
+    ReactDOM.render(React.createElement(MainWindow, null), document.body);
 });
