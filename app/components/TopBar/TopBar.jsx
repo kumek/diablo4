@@ -14,7 +14,7 @@ function(React, $) {
                         <img className="navbar-brand" src='public/img/logo.png' alt="logo"/>
                     </div>
                         {this.props.heroName ? (
-                            <p className="navbar-text">You're playing as <b>{this.props.heroName}</b></p>
+                            <p className="heroName navbar-text">You're playing as <b>{this.props.heroName}</b></p>
                         ) : (
                             <form className="navbar-form navbar-left" >
                               <div className="form-group">

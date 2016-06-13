@@ -1,9 +1,24 @@
+@keyframes showFromLeft {
+    from {
+        margin-left: -20px;
+        opacity: 0.1;
+    }
+}
+
 .topBar {
     border-radius: 0;
+    
     h2 {
         margin: 0;
     }
+    
     .navbar-brand {
         padding: 5px;
+    }
+    
+    .heroName {
+        animation-name: showFromLeft;
+        animation-duration: 0.3s;
+        
     }
 }
