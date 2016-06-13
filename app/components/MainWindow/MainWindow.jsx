@@ -1,13 +1,13 @@
-// tutorial1-raw.js
-define([
-  'react'
-  ],function(React) {
+define(['react', 'components/TopBar'],
+function(React, TopBar) {
     var MainWindow = React.createClass({displayName: 'Main Window',
-      render: function() {
-        return (
-          <div>Main Window</div>
-          )
-      }
+        render: function() {
+            return (
+                <div className="mainWindow">
+                <TopBar />
+                </div>
+            )
+        }
     });
     
     return MainWindow;

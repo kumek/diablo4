@@ -9,12 +9,8 @@ require.config({
 });
 
 require([
-  'jquery',
-  'react',
-  'reactDom',
-  'components/MainWindow'
+  'jquery', 'react', 'reactDom', 'components/MainWindow'
   ], function($, React, ReactDOM, MainWindow) {
     console.log($('#content'));
     ReactDOM.render(React.createElement(MainWindow, null),$('#content')[0]);
-    
 });
