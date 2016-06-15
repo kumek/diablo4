@@ -1,0 +1,60 @@
+$progress_bar_height: 25px;
+
+.simple-stat {
+    display: block;
+    width: 100%;
+    
+    .simple-stat-name {
+        display: block;
+        width: 40px;
+        float: left;
+        text-align: right;
+        text-transform: uppercase;
+        
+        color: #556;
+        font-size: 0.8em;
+        font-weight: 200;
+        
+        line-height: $progress_bar_height;
+        vertical-align: middle;
+        
+    }
+    
+    .simple-stat-value-container {
+
+        margin-left: 45px;
+        margin-bottom: 10px;
+        .stat-progress {
+            margin-bottom: 0;
+            height: $progress_bar_height;
+            border-radius: 2px;
+            
+        }
+        
+        .stat-progress-caption {
+            font-size: 0.8em;
+            font-style: italic;
+            color: #999;
+            
+            
+        }
+    }
+    
+    .progress-bar {
+        &-mana {
+            background-color: #0E76B0;
+            
+        }
+        
+        &-hp {
+            background-color: #1E9153;
+            
+        }
+        
+        &-exp {
+            background-color: #E58827;
+            
+        }
+    }
+}
+

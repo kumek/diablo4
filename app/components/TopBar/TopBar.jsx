@@ -2,7 +2,8 @@ define(['react', 'jquery'],
 function(React, $) {
     var TopBar = React.createClass({displayName: 'Top Bar',
         readName: function() {
-            this.props.setName($('#nameInput').val());
+            console.log("NAME IS BEING SET");
+            this.props.setAttribute('heroName', $('#nameInput').val(), this);
         },
         
         render: function() {
@@ -16,11 +17,11 @@ function(React, $) {
                         {this.props.heroName ? (
                             <p className="heroName navbar-text">You're playing as <b>{this.props.heroName}</b></p>
                         ) : (
-                            <form className="navbar-form navbar-left" >
+                            <form className="navbar-form navbar-left" action="#">
                               <div className="form-group">
                                 <input id="nameInput" type="text" className="form-control" placeholder="Type your name" />
                               </div>
-                              <button onClick={this.readName} type="submit" className="btn btn-default">Play</button>
+                              <button onClick={this.readName} /*type="submit"*/ className="btn btn-default">Play</button>
                             </form>
                         )}
                   </div>

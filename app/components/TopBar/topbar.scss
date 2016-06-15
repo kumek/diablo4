@@ -7,6 +7,7 @@
 
 .topBar {
     border-radius: 0;
+    margin-bottom: 0;
     
     h2 {
         margin: 0;
@@ -17,8 +18,7 @@
     }
     
     .heroName {
-        animation-name: showFromLeft;
-        animation-duration: 0.3s;
+        animation: showFromLeft 0.3s ease-out;
         
     }
 }

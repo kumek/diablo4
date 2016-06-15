@@ -1,3 +1,8 @@
+@keyframes showFromRight {
+    from {
+        margin-right: -20vw;
+    }
+}
 .mainWindow {
     display: block;
     box-sizing: border-box;
@@ -5,9 +10,21 @@
     height: 100vh;
     // margin: 25px;
     background-color: #333;
+    overflow: hidden;
 }
 
 .rightPanel {
+    margin:0;
+    height: 100%;
     width: 20vw;
     float: right;
+    padding: 10px;
+    border-radius: 0;
+    animation: showFromRight 0.3s ease-out;
+}
+
+.window-title {
+    margin-left: 15px;
+    text-transform: uppercase;
+    font-weight: lighter;
 }
