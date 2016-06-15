@@ -1,0 +1,31 @@
+$ability_height: 24px;
+
+.simple-ability {
+    display: block;
+    float: left;
+    width: 25%;
+    margin: 0;
+    padding: 0;
+    
+    .ability-icon {
+        padding: 1px;
+        display: block;
+        width: $ability_height;
+        height: $ability_height;
+        margin: 3px auto;
+    }
+    
+    .ability-value {
+        display: block;
+        width: 100%;
+        line-height: $ability_height;
+        font-size: 0.85em;
+        vertical-align: middle;
+        font-weight: bold;
+        text-align: center;
+    }
+    .ability-bonus {
+        padding-left: 2px;
+        color: #1E9153;
+    }
+}

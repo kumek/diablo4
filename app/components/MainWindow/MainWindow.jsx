@@ -17,54 +17,100 @@ define([
         var MainWindow = React.createClass({displayName: 'Main Window',
             gameModel: {
                 hero: {
-                    name: "Pan Kumpir",
+                    name: "Gienio",
                     
                     equipment: {
                         items: [],
                         gold: 1564
                     },
                     
-                    stats: [
-                        {
+                    stats: {
+                        'hp': {
                             name: 'hp',
                             caption: 'HP',
                             value: 75,
                             max: 100
                         },
-                        {
+                        'mana': {
                             name: 'mana',
                             caption: 'Mana',
                             value: 200,
                             max: 250
                             
                         },
-                        {
+                        'exp': {
                             name: 'exp',
                             caption: 'Exp',
                             value: 156,
                             max: 1000
-                        }
-                    ],
+                        },
+                    },
                     
-                    //hero functions:
-                    setName: function(_name) {
-                        this.gameModel.hero.name = _name;
-                        this.setState(this.gameModel);
+                    abilities: {
+                        'attack': {
+                            name: 'attack',
+                            caption: 'Attack',
+                            value: 15,
+                            bonus: 3
+                        },
+                        
+                        'defense': {
+                            name: 'defense',
+                            caption: 'Defense',
+                            value: 30
+                        },
+                        
+                        'magic': {
+                            name: 'magic',
+                            caption: 'Magic power',
+                            value: 13,
+                            bonus: 10
+                        },
+                        
+                        'accuracy': {
+                            name: 'accuracy',
+                            caption: 'Accuracy',
+                            value: 26
+                        }
                     }
                 }
             },
+            
+            updateModel: function() {
+                this.setState(this.gameModel);
+            },
+            
+            // --- GAME CORE FUNCTIONS --- 
 
+            
+            // --- SETTERS, GETTERS ----
+            setHeroName: function(_name) {
+                this.gameModel.hero.name = _name;
+                this.updateModel();
+            },
+            
+            setHeroState: function(_statName, _statValue) {
+                this.gameModel.hero.states[_statName].value = _statValue;
+                this.updateModel();
+            },
+            
+            setHeroStateMax: function(_statName, _stateMaxValue) {
+                this.gameModel.hero.states[_statName].max = _stateMaxValue;
+                this.updateModel();
+            },
+            
+            // --- RENDER FUNCTIONS ---
             getInitialState: function() {
                 return this.gameModel;
             },
-    
+            
             render: function() {
                 return (
                     <div className="mainWindow">
-                        <TopBar heroName={this.state.hero.name} setAttribute={this.state.hero.setName}/>
-                        {this.state.get('heroName') ?
+                        <TopBar heroName={this.state.hero.name} setName={this.setHeroName}/>
+                        {this.state.hero.name ?
                              <div className="rightPanel panel">
-                                <StatsWindow gameModel={this.state} /*heroStats={this.state.get('heroStats')}*//>
+                                <StatsWindow heroAbilities={this.state.hero.abilities} heroStats={this.state.hero.stats} />
                             </div>
                         : null}
                     </div>

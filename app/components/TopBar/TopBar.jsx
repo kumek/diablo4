@@ -1,12 +1,13 @@
 define(['react', 'jquery'],
-function(React, $) {
+function(React, $){
+
     var TopBar = React.createClass({displayName: 'Top Bar',
         readName: function() {
-            console.log("NAME IS BEING SET");
-            this.props.setAttribute('heroName', $('#nameInput').val(), this);
+            this.props.setName($('#nameInput').val());
         },
         
         render: function() {
+
 
             return (
                 <nav className="topBar navbar navbar-default">
