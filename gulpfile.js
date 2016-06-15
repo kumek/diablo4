@@ -5,14 +5,10 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
-// var uglify = require('gulp-uglify');
-// var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var babel = require('gulp-babel');
 var dest = require('gulp-dest');
 var cleanCSS = require('gulp-clean-css');
-// var sourcemaps = require('gulp-sourcemaps');
-
 
 var src = {
     js: ['app/js/*.js'],
@@ -20,7 +16,8 @@ var src = {
     index: ['app/*.html','app/*.js'],
     sass: ['app/css/*.scss', 'app/components/**/*.scss'],
     models: ['app/models/*.js'],
-    img: ['app/img/*']
+    img: ['app/img/**/*'],
+    assets: ['app/assets/*']
 };
 
 
@@ -31,7 +28,8 @@ var dst = {
     fonts: 'dist/public/fonts',
     index: 'dist/',
     models: 'dist/public/models',
-    img: 'dist/public/img'
+    img: 'dist/public/img',
+    assets: 'dist/public/assets'
 }
 
 var jsLibraries = [
@@ -105,6 +103,11 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(dst.js));
 });
 
+gulp.task('assets', function() {
+    return gulp.src(src.assets)
+    .pipe(gulp.dest(dst.assets));
+});
+
 gulp.task('jsx', function() {
     return gulp.src(src.jsx)
     .pipe(babel({
@@ -133,4 +136,4 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('build', ['copyLibraries', 'copyIndex', 'copyImages', 'scripts', 'jsx', 'models', 'sass']);
+gulp.task('build', ['copyLibraries', 'copyIndex', 'copyImages', 'scripts', 'jsx', 'assets', 'models', 'sass']);

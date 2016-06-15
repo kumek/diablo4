@@ -19,11 +19,40 @@ define([
             gameModel: {
                 floor: {
                     level: "-1",
-                    name: "First time you gonna die"
+                    name: "First time you gonna die",
+                    mobs: [
+                        {
+                            id: 0,
+                            name: 'caverat',
+                            caption: 'Szczur z kanałów',
+                            hp: 25,
+                            maxhp: 25,
+                            defence: 2,
+                            attack: 3,
+                            items: []
+                        },{
+                            id: 1,
+                            name: 'rat',
+                            caption: 'Brązowy szczur',
+                            hp: 15,
+                            maxhp: 40,
+                            defence: 1,
+                            attack: 4,
+                            items: []
+                        },{
+                            id: 2,
+                            name: 'troll',
+                            caption: 'Lekki Troll',
+                            hp: 5,
+                            maxhp: 75,
+                            defence: 3,
+                            attack: 5,
+                            items: []
+                        }]
                 },
                 
                 hero: {
-                    name: "Gienio",
+                    name: "Kondzior",
                     
                     equipment: {
                         items: [],
@@ -105,6 +134,16 @@ define([
                 this.updateModel();
             },
             
+            onMobClick: function(_mob) {
+                //TODO: Change value of damage taken
+                var __mob;
+                (__mob = this.gameModel.floor.mobs.filter(function(mob) {
+                    return mob.id === _mob.id;
+                })[0]).hp = __mob.hp-10 >= 0 ? __mob.hp-10 : 0;
+                
+                this.updateModel();
+            },
+            
             // --- RENDER FUNCTIONS ---
             getInitialState: function() {
                 return this.gameModel;
@@ -117,7 +156,7 @@ define([
                         
                         <div className="centerPanel-container" >
                             <div className="centerPanel panel">
-                                <FloorWindow floor={this.state.floor} />
+                                <FloorWindow onMobClick={this.onMobClick} floor={this.state.floor} />
                             </div>
                         </div>
                         {this.state.hero.name ?

@@ -7,7 +7,7 @@ function(React) {
             return (
                 <div className="simple-ability simple-ability">
                     <img className="ability-icon" 
-                        src={"public/img/" + this.props.ability.name + ".png"} >
+                        src={"public/img/abilities/" + this.props.ability.name + ".png"} >
                     </img>
                     <div className="ability-value">
                         {this.props.ability.value}

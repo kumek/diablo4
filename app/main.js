@@ -6,7 +6,8 @@ require.config({
     reactDom: 'js/react-dom.min',
     jquery: 'js/jquery.min',
     backbone: 'js/backbone-min',
-    underscore: 'js/underscore-min'
+    underscore: 'js/underscore-min',
+    assets: 'assets/Assets'
   }
 });
 

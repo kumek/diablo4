@@ -1,5 +1,5 @@
-define(['react','models/Item'],
-function(React, Item) {
+define(['react'],
+function(React) {
     
     var EquipmentWindow = React.createClass({displayName: 'Equipment Window',
         render: function() {
