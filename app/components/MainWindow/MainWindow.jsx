@@ -2,8 +2,9 @@ define([
     'react', 
     'components/TopBar', 
     'components/EquipmentWindow',
-    'components/StatsWindow'
-    ], function(React, TopBar, EquipmentWindow, StatsWindow) {
+    'components/StatsWindow',
+    'components/FloorWindow'
+    ], function(React, TopBar, EquipmentWindow, StatsWindow, FloorWindow) {
         
         // An example generic Mixin that you can add to any component that should react
         // to changes in a Backbone component. The use cases we've identified thus far
@@ -16,6 +17,11 @@ define([
         
         var MainWindow = React.createClass({displayName: 'Main Window',
             gameModel: {
+                floor: {
+                    level: "-1",
+                    name: "First time you gonna die"
+                },
+                
                 hero: {
                     name: "Gienio",
                     
@@ -108,8 +114,14 @@ define([
                 return (
                     <div className="mainWindow">
                         <TopBar heroName={this.state.hero.name} setName={this.setHeroName}/>
+                        
+                        <div className="centerPanel-container" >
+                            <div className="centerPanel panel">
+                                <FloorWindow floor={this.state.floor} />
+                            </div>
+                        </div>
                         {this.state.hero.name ?
-                             <div className="rightPanel panel">
+                            <div className="rightPanel panel">
                                 <StatsWindow heroAbilities={this.state.hero.abilities} heroStats={this.state.hero.stats} />
                             </div>
                         : null}
