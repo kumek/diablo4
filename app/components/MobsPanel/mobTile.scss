@@ -1,6 +1,6 @@
 $tile_size: 50px;
 
-.mobs-tile {
+.mob-tile {
     cursor: pointer;
     display: block;
     float: left;
@@ -38,6 +38,7 @@ $tile_size: 50px;
     }
     
     .mob-dead {
+        z-index: 1000;
         display: block;
         width: 100%;
         height: 100%;
@@ -70,4 +71,25 @@ $tile_size: 50px;
     }
     
     //background-color: #a6c;
+}
+
+@keyframes hideToTop {
+$damage_height: 10px;
+    to {
+        margin-top: -3*$damage_height;
+        opacity: 0;
+    }
+}
+
+
+.damage-taken {
+    font-weight: bold;
+    font-size: 0.7em;
+    color: #A1110A;
+    position: absolute;
+    animation: hideToTop 1s ease-out;
+    &:before {
+        content: '-';
+    }
+    
 }

@@ -19,7 +19,7 @@ define([
                                 (+{this.props.ability.bonus})
                             </span>
                         : null }
-                    </div>                
+                    </div>
                 </div>
             )
         }

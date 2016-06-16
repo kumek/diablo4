@@ -1,8 +1,10 @@
 // tutorial1-raw.js
-define(['react', 'assets'],
-function(React, Assets) {
+define([
+    'react',
+    'jquery',
+    'assets'
+    ], function(React, $, Assets) {
     var MobTile = React.createClass({displayName: 'MobTile',
-    
         render: function() {
             var progressValue = this.props.mob.hp/this.props.mob.maxhp;
             
@@ -21,8 +23,14 @@ function(React, Assets) {
             }(progressValue);
             
             return (
-                <div className="mobs-tile" style={{backgroundImage: 'url(' + Assets.monsters[this.props.mob.name] + ')'}}
+                <div className="mob-tile" id={this.props.mob.id} style={{backgroundImage: 'url(' + Assets.monsters[this.props.mob.name] + ')'}}
                     onClick={this.props.onMobClick.bind(null, this.props.mob)}>
+                    {this.props.mob.showDamage ? 
+                        <div className="damage-taken">
+                            {this.props.mob.showDamage}
+                        </div>
+                    : null}
+                    
                     {this.props.mob.hp === 0 ? 
                         <span className="mob-dead glyphicon glyphicon-remove">
                         </span> 

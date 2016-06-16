@@ -11,7 +11,7 @@ define([
             icons: {
                 hero_attack: 'public/img/icons/S_Sword01.png',
                 hero_defence: 'public/img/icons/E_Gold01.png',
-                hero_magic: 'public/img/icons/S_Thunder02.png',
+                hero_magic: 'public/img/icons/S_Fire05.png',
                 hero_accuracy: 'public/img/icons/S_Bow09.png'
             }
         };

@@ -141,6 +141,12 @@ define([
                     return mob.id === _mob.id;
                 })[0]).hp = __mob.hp-10 >= 0 ? __mob.hp-10 : 0;
                 
+                __mob.showDamage = 10;
+                setTimeout(function() {
+                    __mob.showDamage = null;
+                    this.updateModel();
+                }.bind(this), 1000);
+
                 this.updateModel();
             },
             
