@@ -32,8 +32,18 @@ $tile_size: 50px;
         box-shadow: none;
         
         .progress-bar {
-            background-color: #1E9153;
+            // background-color: #1E9153;
+            transition: all 0.1s linear;
         }
+    }
+    
+    .mob-dead, .mob-alive {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        
     }
     
     .stats {
