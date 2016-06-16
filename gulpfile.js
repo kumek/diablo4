@@ -126,6 +126,7 @@ gulp.task('models', function() {
 gulp.task('watch', function() {
     gulp.watch(src.js, ['lint', 'scripts']);
     gulp.watch(src.jsx, ['jsx']);
+    gulp.watch(src.assets, ['assets']);
     gulp.watch(src.sass, ['sass']);
     gulp.watch(src.index, ['copyIndex']);
 });

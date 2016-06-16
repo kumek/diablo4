@@ -1,13 +1,15 @@
 // tutorial1-raw.js
-define(['react'],
-function(React) {
+define([
+    'react',
+    'assets'
+    ], function(React, Assets) {
     var SimpleAbility = React.createClass({displayName: 'SimpleAbility',
         
         render: function() {
             return (
                 <div className="simple-ability simple-ability">
                     <img className="ability-icon" 
-                        src={"public/img/abilities/" + this.props.ability.name + ".png"} >
+                        src={Assets.icons['hero_' + this.props.ability.name]} >
                     </img>
                     <div className="ability-value">
                         {this.props.ability.value}

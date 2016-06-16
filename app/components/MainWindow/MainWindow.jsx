@@ -89,9 +89,9 @@ define([
                             bonus: 3
                         },
                         
-                        'defense': {
-                            name: 'defense',
-                            caption: 'Defense',
+                        'defence': {
+                            name: 'defence',
+                            caption: 'Defence',
                             value: 30
                         },
                         
