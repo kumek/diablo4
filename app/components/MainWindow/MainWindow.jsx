@@ -29,6 +29,7 @@ define([
                             maxhp: 25,
                             defence: 2,
                             attack: 3,
+                            exp: 25,
                             items: []
                         },{
                             id: 1,
@@ -38,6 +39,7 @@ define([
                             maxhp: 40,
                             defence: 1,
                             attack: 4,
+                            exp: 35,
                             items: []
                         },{
                             id: 2,
@@ -47,13 +49,13 @@ define([
                             maxhp: 75,
                             defence: 3,
                             attack: 5,
+                            exp: 50,
                             items: []
                         }]
                 },
                 
                 hero: {
-                    name: "Kondzior",
-                    
+                    name: "Bandzior",
                     equipment: {
                         items: [],
                         gold: 1564
@@ -135,18 +137,37 @@ define([
             },
             
             onMobClick: function(_mob) {
-                //TODO: Change value of damage taken
-                var __mob;
-                (__mob = this.gameModel.floor.mobs.filter(function(mob) {
-                    return mob.id === _mob.id;
-                })[0]).hp = __mob.hp-10 >= 0 ? __mob.hp-10 : 0;
+                var __mob, __damage;
                 
-                __mob.showDamage = 10;
+                //Get mob that action goes from/to
+                __mob = this.gameModel.floor.mobs.filter(function(mob) {
+                    return mob.id === _mob.id;
+                })[0];
+                
+                
+                console.log("__mob.hp: " + __mob.hp);
+                
+                //Calculate damage taken to monster
+                var __tmpDmg
+                __damage = ((__tmpDmg = (this.gameModel.hero.abilities.attack.value-_mob.defence)) > __mob.hp) ? __mob.hp : __tmpDmg;
+                console.log("__damage: " + __damage);
+                
+                //Decrease monster's hp value
+                __mob.hp = (__mob.hp-__damage <= 0) ? 0 : __mob.hp-__damage;
+                
+                
+                //Show damage
+                __mob.showDamage = __damage;
                 setTimeout(function() {
                     __mob.showDamage = null;
                     this.updateModel();
                 }.bind(this), 1000);
-
+                
+                //Decrease hero's hp value
+                this.gameModel.hero.stats.hp.value -= __mob.attack;
+                
+                
+                
                 this.updateModel();
             },
             
