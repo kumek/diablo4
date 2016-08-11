@@ -5,21 +5,11 @@ define([
     'components/StatsWindow',
     'components/FloorWindow'
     ], function(React, TopBar, EquipmentWindow, StatsWindow, FloorWindow) {
-        
-        // An example generic Mixin that you can add to any component that should react
-        // to changes in a Backbone component. The use cases we've identified thus far
-        // are for Collections -- since they trigger a change event whenever any of
-        // their constituent items are changed there's no need to reconcile for regular
-        // models. One caveat: this relies on getBackboneModels() to always return the
-        // same model instances throughout the lifecycle of the component. If you're
-        // using this mixin correctly (it should be near the top of your component
-        // hierarchy) this should not be an issue.
-        
         var MainWindow = React.createClass({displayName: 'Main Window',
             gameModel: {
                 floor: {
                     level: "-1",
-                    name: "First time you gonna die",
+                    name: "First level below the ground",
                     mobs: [
                         {
                             id: 0,
@@ -55,7 +45,7 @@ define([
                 },
                 
                 hero: {
-                    name: "Bandzior",
+                    name: "Parry Hotter",
                     equipment: {
                         items: [],
                         gold: 1564

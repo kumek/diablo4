@@ -1,2 +1,2 @@
 # diablo4
-# rpg game
+RPG game written using React. Gulp is being used for building and other scripts.
